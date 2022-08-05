@@ -1,6 +1,7 @@
 #include "../tools/tools.hpp"
 #include "../tools/window.hpp"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 using namespace std;
 
 // Variables and others
@@ -18,6 +19,7 @@ void init()
 
     // Init SDL
     SDL_Init(SDL_INIT_EVERYTHING);
+    IMG_Init(IMG_INIT_PNG);
 
     // Background color
     SDL_SetRenderDrawColor(window.getRenderer(), 0, 255, 0, 255);
@@ -38,7 +40,6 @@ void update()
         }
 
         SDL_RenderClear(window.getRenderer());
-        
         SDL_RenderPresent(window.getRenderer());
     }
 }
@@ -48,6 +49,7 @@ void finish()
     game_running = false;
 
     window.~Window();
+    IMG_Quit();
     SDL_Quit();
 }
 
