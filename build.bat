@@ -1,0 +1,1 @@
+g++ -Wall src/*.cpp -o build/main -lmingw32 -lSDL2main -lSDL2 && .\build\main
