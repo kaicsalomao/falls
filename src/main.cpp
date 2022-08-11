@@ -1,5 +1,6 @@
-#include "../tools/tools.hpp"
-#include "../tools/window.hpp"
+#include "../engine/tools.hpp"
+#include "../engine/sprite.hpp"
+#include "../engine/window.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 using namespace std;
@@ -9,22 +10,24 @@ using namespace std;
 #define GAME_HEIGHT 480
 
 Window window(GAME_WIDTH, GAME_HEIGHT, "Falls");
+Sprite sprite(window.getRenderer());
 
 SDL_Event event;
 bool game_running = false;
+
+SDL_Texture* background = nullptr;
+SDL_Texture* ground = nullptr;
+
 // Game functions
 void init()
 {
     game_running = true;
-
-    // Init SDL
     SDL_Init(SDL_INIT_EVERYTHING);
-    IMG_Init(IMG_INIT_PNG);
+    IMG_Init(IMG_INIT_PNG || IMG_INIT_JPG);
 
-    // Background color
-    SDL_SetRenderDrawColor(window.getRenderer(), 0, 255, 0, 255);
+    background = sprite.loadTexture("assets/bg.jpg");
+    ground = sprite.loadTexture("assets/ground.png");
 }
-
 void update()
 {
     while (game_running)
@@ -39,8 +42,12 @@ void update()
             }
         }
 
+        // Clear screen
         SDL_RenderClear(window.getRenderer());
+        sprite.renderTexture(background, 0, 0);
+        sprite.renderTexture(ground, 10, 10, 32, 32);
         SDL_RenderPresent(window.getRenderer());
+
     }
 }
 

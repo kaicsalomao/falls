@@ -11,10 +11,11 @@ class Window
         Window(int width, int height, string title);
         ~Window();
 
+        // Getters
         SDL_Renderer* getRenderer();
         SDL_Window* getWindow();
 
     private:
-        SDL_Window* window;
-        SDL_Renderer* renderer;
+        SDL_Window* window = nullptr;
+        SDL_Renderer* renderer = nullptr;
 };
