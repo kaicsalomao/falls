@@ -14,6 +14,8 @@ Sprite sprite(window.getRenderer());
 
 SDL_Event event;
 bool game_running = false;
+double pos_x, pos_y;
+double lastTime = 0;
 
 SDL_Texture* background = nullptr;
 SDL_Texture* ground = nullptr;
@@ -44,8 +46,20 @@ void update()
 
         // Clear screen
         SDL_RenderClear(window.getRenderer());
+
         sprite.renderTexture(background, 0, 0);
-        sprite.renderTexture(ground, 10, 10, 32, 32);
+        sprite.renderTexture(ground, pos_x, 100, 100, 100);
+        
+        // Time
+        double currentTime = SDL_GetTicks();
+        double deltaTime = currentTime - lastTime;
+        lastTime = currentTime;
+
+        // Update
+        pos_x += deltaTime / 1000;
+        if (pos_x > GAME_WIDTH)
+            pos_x = 0;
+
         SDL_RenderPresent(window.getRenderer());
 
     }
@@ -56,6 +70,8 @@ void finish()
     game_running = false;
 
     window.~Window();
+    SDL_DestroyTexture(background);
+    SDL_DestroyTexture(ground);
     IMG_Quit();
     SDL_Quit();
 }

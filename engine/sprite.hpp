@@ -13,8 +13,11 @@ class Sprite
         ~Sprite();
 
         SDL_Texture* loadTexture(string path);
-        void renderTexture(SDL_Texture* texture, int pos_x, int pos_y); // Normal image size
-        void renderTexture(SDL_Texture* texture, int pos_x, int pos_y, int w, int h); // Resize the image
+        void renderTexture(SDL_Texture* texture, float pos_x, float pos_y); // Normal image size
+        void renderTexture(SDL_Texture* texture, float pos_x, float pos_y, int w, int h); // Resize the image
+
+        // Animation sprites
+        void renderTexture(SDL_Texture* texture, float pos_x, float pos_y, int w, int h, int frame); // Resize the image
         
     private:
         SDL_Renderer* i_renderer; // Internal renderer

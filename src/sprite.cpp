@@ -18,7 +18,7 @@ SDL_Texture* Sprite::loadTexture(string path)
     SDL_QueryTexture(texture, NULL, NULL, &texture_width, &texture_height);
     return texture;
 }
-void Sprite::renderTexture(SDL_Texture* texture, int pos_x, int pos_y)
+void Sprite::renderTexture(SDL_Texture* texture, float pos_x, float pos_y)
 {
     SDL_Rect dstRect; // Destination rect
     dstRect.x = pos_x;
@@ -28,7 +28,7 @@ void Sprite::renderTexture(SDL_Texture* texture, int pos_x, int pos_y)
 
     SDL_RenderCopy(i_renderer, texture, NULL, &dstRect);
 }
-void Sprite::renderTexture(SDL_Texture* texture, int pos_x, int pos_y, int w, int h)
+void Sprite::renderTexture(SDL_Texture* texture, float pos_x, float pos_y, int w, int h)
 {
     SDL_Rect dstRect; // Destination rect
     dstRect.x = pos_x;
@@ -37,4 +37,21 @@ void Sprite::renderTexture(SDL_Texture* texture, int pos_x, int pos_y, int w, in
     dstRect.h = h;
 
     SDL_RenderCopy(i_renderer, texture, NULL, &dstRect);
+}
+
+void Sprite::renderTexture(SDL_Texture* texture, float pos_x, float pos_y, int w, int h, int frame)
+{
+    SDL_Rect dstRect; // Destination rect
+    dstRect.x = pos_x;
+    dstRect.y = pos_y;
+    dstRect.w = w;
+    dstRect.h = h;
+
+    SDL_Rect srcRect; // Source rect
+    srcRect.x = frame * w;
+    srcRect.y = 0;
+    srcRect.w = w;
+    srcRect.h = h;
+
+    SDL_RenderCopy(i_renderer, texture, &srcRect, &dstRect);
 }
