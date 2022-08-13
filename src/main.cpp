@@ -44,12 +44,10 @@ void update()
                     break;
             }
         }
-
         // Clear screen
         SDL_RenderClear(window.getRenderer());
 
         sprite.renderTexture(background, 0, 0);
-        sprite.renderTexture(ground, position.getX(), position.getY(), 100, 100);
 
         SDL_RenderPresent(window.getRenderer());
     }
