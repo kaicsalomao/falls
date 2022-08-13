@@ -1,5 +1,5 @@
 CC := g++
-LFLAGS := -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image
+LFLAGS := -Wall -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image
 
 main.exe: main.o sprite.o window.o
 	$(CC) .obj/*.o $(LFLAGS) -o build/main.exe && cd .\build && main.exe && cd ..

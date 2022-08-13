@@ -1,21 +1,22 @@
 #include "../engine/tools.hpp"
 #include "../engine/sprite.hpp"
 #include "../engine/window.hpp"
+#include "../engine/vector2.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 using namespace std;
 
 // Variables and others
-#define GAME_WIDTH 640
-#define GAME_HEIGHT 480
+const int GAME_WIDTH = 840;
+const int GAME_HEIGHT = 480;
 
 Window window(GAME_WIDTH, GAME_HEIGHT, "Falls");
 Sprite sprite(window.getRenderer());
 
+Vector2 position(0, 0);
+
 SDL_Event event;
 bool game_running = false;
-double pos_x, pos_y;
-double lastTime = 0;
 
 SDL_Texture* background = nullptr;
 SDL_Texture* ground = nullptr;
@@ -48,20 +49,9 @@ void update()
         SDL_RenderClear(window.getRenderer());
 
         sprite.renderTexture(background, 0, 0);
-        sprite.renderTexture(ground, pos_x, 100, 100, 100);
-        
-        // Time
-        double currentTime = SDL_GetTicks();
-        double deltaTime = currentTime - lastTime;
-        lastTime = currentTime;
-
-        // Update
-        pos_x += deltaTime / 1000;
-        if (pos_x > GAME_WIDTH)
-            pos_x = 0;
+        sprite.renderTexture(ground, position.getX(), position.getY(), 100, 100);
 
         SDL_RenderPresent(window.getRenderer());
-
     }
 }
 
